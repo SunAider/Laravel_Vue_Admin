@@ -1,0 +1,157 @@
+@import "_variables";
+@import "reset";
+
+/*-------------------------------------------*/
+/*  共通
+/*-------------------------------------------*/
+html, body {
+    height: 100%;
+}
+
+body  {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+// .main {
+//     min-height: 100vh;
+//     flex: 1;
+// }
+
+.table-striped-green > tbody > tr:nth-of-type(odd) {
+    background: $MainLight !important;
+}
+
+li.page-item.pagination-page-nav.active > .page-link {
+    background: $Main !important;
+    color: #fff !important;
+}
+
+/*-------------------------------------------*/
+/*  文字サイズ
+/*-------------------------------------------*/
+.font-xxs {
+    font-size: $font-xxs;
+}
+.font-xs {
+    font-size: $font-xs;
+}
+.font-sm {
+    font-size: $font-sm; // 0.875rem
+}
+.font-md {
+    font-size: $font-md; // 1rem
+}
+.font-lg {
+    font-size: $font-lg;
+}
+.font-xl {
+    font-size: $font-xl;
+}
+.font-xxl {
+    font-size: $font-xxl;
+}
+
+/*-------------------------------------------*/
+/*  その他共通
+/*-------------------------------------------*/
+.pointer {
+    cursor: pointer;
+}
+
+.sort-header {
+    cursor: pointer;
+}
+
+.error-message {
+    color: $Warning;
+    font-size: 12px;
+}
+
+.form-control {
+    height: 36px;
+    &:disabled[readonly] {
+        background-color: #f9f9f9 !important;
+        opacity: 1;
+    }
+    &::placeholder {
+        color: $Gray!important;
+    }
+}
+
+/*-------------------------------------------*/
+/*  管理画面
+/*-------------------------------------------*/
+table {
+    text-align: center;
+}
+.header-area--title{
+    font-size: 20px;
+}
+
+.table-wrapper {
+    position: relative;
+    height: 100vh;
+    overflow-x: scroll;
+    table{
+        position: absolute;
+        tr,td {
+            // white-space: nowrap;
+            white-space: revert; //BB
+        }
+    }
+}
+/*-------------------------------------------*/
+/*  form
+/*-------------------------------------------*/
+.form-label{
+    font-size: $font-md;
+    font-weight: bold;
+}
+/*-------------------------------------------*/
+/*  BB Style
+/*-------------------------------------------*/
+input[disabled]{
+    // outline:1px solid red; // or whatever
+    // background: aqua;
+}
+// input[disabled]::before {
+//     content: "";
+//     display: block;
+//     background-color: white;
+//     font-family: "Montserrat";
+//     border-radius: 2px;
+//     height: 15px;
+//     width: 15px;
+// }
+
+
+// input[disabled]::after {
+//     content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="red" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+//     display: block;
+//     position: absolute;
+//     left: -20px;
+//     top: 1px;
+// }
+input[type=checkbox] {
+    position: relative;
+}
+input[type=checkbox]:checked::before {
+    content: "";
+    display: block;
+    background-color: black;
+    font-family: "Montserrat";
+    border-radius: 2px;
+    height: 15px;
+    width: 15px;
+}
+
+
+input[type=checkbox]:checked::after {
+    content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+    display: block;
+    position: absolute;
+    left: 1px;
+    top: -1px;
+}
