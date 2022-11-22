@@ -77,7 +77,8 @@
     .ex-check {
         align-items: center;
         display: flex;
-        font-size: $font-form;
+        // font-size: $font-form;
+        font-size: $font-form-bb;
         font-weight: 400 !important;
 
         > span {
@@ -88,12 +89,14 @@
     }
 
     .ex-input {
-        font-size: $font-form;
+        // font-size: $font-form;
+        font-size: $font-form-bb;
         // font-size: $font-md;
         width: 100%;
 
         &::placeholder {
-            font-size: $font-form;
+            // font-size: $font-form;
+            font-size: $font-form-bb;
             // font-size: $font-md;
         }
 

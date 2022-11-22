@@ -27,8 +27,10 @@ class HosRequest extends FormRequest
     {
         $rules = [
             'tag_id' => ['required','string','max:64', Rule::unique('hospitals', 'hospitals.tag_id')->whereNull('deleted_at')->ignore($this->id) ],
+            // 'tag_id' => 'required|string|max:64',
             'hos_name' => 'required|string|max:32',
             'postNum' => 'required|string|max:8|regex:/^[0-9]{3}-[0-9]{4}$/',
+            // 'postNum' => 'required|string',
             'URLA' => 'required|max:500',
             'URLB' => 'required|max:500',
             'URLC' => 'required|max:500',

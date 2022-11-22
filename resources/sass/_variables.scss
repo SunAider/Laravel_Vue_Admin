@@ -30,6 +30,7 @@ $font-xl: 1.5em;
 $font-xxl: 1.75em;
 
 $font-form: max(#{ getVW(24)}, 16px);
+$font-form-bb: max(#{ getVW(12)}, 8px);
 
 /*-------------------------------------------*/
 /*  メディアクエリ
