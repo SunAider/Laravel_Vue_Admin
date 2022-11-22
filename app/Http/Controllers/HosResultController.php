@@ -31,10 +31,11 @@ class HosResultController extends Controller
         $endTime = $request->get('endTime');
         $sortKey = $request->get('sort_key');
         $orderBy = $request->get('order_by');
+        $raw = $request->get('raw');
         // return "bbb";
         // $data['result'] = "bbb";
         // return response()->json($data, 200);
-        return $this->service->fetchHosResult($keyword, $startTime, $endTime, $sortKey, $orderBy);
+        return $this->service->fetchHosResult($keyword, $startTime, $endTime, $sortKey, $orderBy, $raw);
     }
 
     /**

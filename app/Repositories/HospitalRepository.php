@@ -243,6 +243,14 @@ class HospitalRepository
         }
 
         $bannerF = 0; //return json_encode(array("restState" => $restState)); 
+
+        if ($click_type == 1 ) 
+        {
+            HospitalRepository::popupClicked($tag_id, 0);
+        } else {
+            HospitalRepository::popupClicked($tag_id, 5);
+        }
+
         if ($restState == 1 && $wangState == 1) {
             $bannerF = 1;
             HospitalRepository::popupClicked($tag_id, $click_type);

@@ -3,9 +3,11 @@
     title="成果確認"
     :is-need-register-btn="false"
     :is-need-csv-export="true"
+    :is-need-sub-csv-export="true"
     :pagination-data="paginationData"
     @getPaginationResults="getPaginationResults"
     @onCsvExport="onCsvExport"
+    @onSubCsvExport="onSubCsvExport"
   >
     <!-- <template #breadcrumb> </template> -->
     <template #content>
@@ -31,16 +33,22 @@
               <th scope="col" class="sort-header">No</th>
               <th scope="col" class="sort-header" @click="onSort('tag_id')">病院のタグ名</th>
               <th scope="col" class="sort-header">
-                ポップアップ表示回数
+                PC_Click回数
               </th>
               <th scope="col" class="sort-header">
-                ポップアップクリック回数
+                PC_IMP
               </th>
               <th scope="col" class="sort-header">
-                固定フッター表示回数
+                PC_PV
               </th>
               <th scope="col" class="sort-header">
-                固定フッタークリック回数
+                SP_Click回数
+              </th>
+              <th scope="col" class="sort-header">
+                SP_IMP
+              </th>
+              <th scope="col" class="sort-header">
+                SP_PV
               </th>
             </tr>
           </thead>
@@ -58,6 +66,12 @@
               </td>
               <td class="align-middle py-1 pointer">
                 {{ hosResult.pcNum2 }}
+              </td>
+              <td class="align-middle py-1 pointer">
+                {{ hosResult.pcNum3 }}
+              </td>
+              <td class="align-middle py-1 pointer">
+                {{ hosResult.spNum3 }}
               </td>
               <td class="align-middle py-1 pointer">
                 {{ hosResult.spNum1 }}
@@ -103,6 +117,7 @@ export default {
     isAsc: false,
     paginationData: {},
     hosResults: [],
+    hosResultsSubCSV: [],
     model: {
       startDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`,
       endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
@@ -163,6 +178,26 @@ export default {
           this.$toast.errorToast()
         })
     },
+    async fetchHosCSV() {
+      const orderBy = this.isAsc ? 'asc' : 'desc'
+      await hosResultRepository
+        .indexWithHosResultCSV(this.page, this.startDateTime, this.endDateTime, this.sortKey, orderBy)
+        .then(res => {
+          if (res.status !== HTTP_STATUS.OK) {
+            this.$toast.errorToast()
+            return
+          }
+          this.hosResultsSubCSV = res.data
+          // console.log('axios result', this.hosResults)
+        })
+        .catch(async err => {
+          if (err.response) {
+            await this.$errHandling.adminCatch(err.response.status)
+            return
+          }
+          this.$toast.errorToast()
+        })
+    },
     async onSort(key) {
       this.isAsc = this.sortKey === key ? !this.isAsc : true
       this.sortKey = key
@@ -208,6 +243,53 @@ export default {
       console.log('CSV export ready')
       const html = document.querySelector('table').outerHTML
       this.htmlToCSV(html, 'report.csv')
+    },
+    onSubCsvExport() {
+      console.log('Raw Data CSV export ready')
+      this.fetchHosCSV()
+      console.log("before sub download", this.hosResultsSubCSV)
+      var array = this.hosResultsSubCSV
+        var str = '病院のタグ名, 日時, 種類' + '\r\n';
+        console.log("array length", array.length)
+        for (var i = 0; i < array.length; i++) { 
+          let line = ''
+          let click_type = ''
+          switch (array[i].click_type) {
+            case 0:
+              click_type = "PC_PV"
+              break
+            case 1:
+              click_type = "PC_IMP"
+              break
+            case 2:
+              click_type = "PC_CLICK"
+              break
+            case 3:
+              click_type = "SP_IMP"
+              break
+            case 4:
+              click_type = "SP_CLICK"
+              break
+            case 5:
+              click_type = "SP_PV"
+              break
+          }
+          line = array[i].tag_id + "," + array[i].click_date + "," + click_type;
+          console.log("array line", line)
+          str += line + '\r\n';
+        }
+        console.log("str", str)
+
+        var blob = new Blob([str], { type: 'text/csv;charset=utf-8;' });
+
+        var link = document.createElement('a');
+        var url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'csvfilename.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     },
   },
 }

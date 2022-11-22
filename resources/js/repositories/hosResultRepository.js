@@ -8,7 +8,12 @@ export default {
    */
   indexWithHosResult(page, startTime, endTime, sortKey, orderBy) {
     return axios.get(
-      `${resource}?page=${page}&startTime=${startTime}&endTime=${endTime}&sort_key=${sortKey}&order_by=${orderBy}`
+      `${resource}?page=${page}&startTime=${startTime}&endTime=${endTime}&sort_key=${sortKey}&order_by=${orderBy}&raw=0`
+    )
+  },
+  indexWithHosResultCSV(page, startTime, endTime, sortKey, orderBy) {
+    return axios.get(
+      `${resource}?page=${page}&startTime=${startTime}&endTime=${endTime}&sort_key=${sortKey}&order_by=${orderBy}&raw=1`
     )
   },
 }

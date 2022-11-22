@@ -39,6 +39,14 @@
           :color="BUTTON.COLOR.PRIMARY"
           @onClick="$emit('onCsvExport')"
         />
+        <AButton
+          v-if="isNeedSubCsvExport"
+          label="ローデータCSV"
+          class="shadow"
+          width="150px"
+          :color="BUTTON.COLOR.GRAY"
+          @onClick="$emit('onSubCsvExport')"
+        />
       </div>
     </div>
 
@@ -90,6 +98,11 @@ export default {
       default: false,
     },
     isNeedCsvExport: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    isNeedSubCsvExport: {
       type: Boolean,
       required: false,
       default: false,

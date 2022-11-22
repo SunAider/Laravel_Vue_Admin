@@ -21,9 +21,9 @@ class HosResultService
      * @param string $orderBy
      * @return object
      */
-    public function fetchHosResult(?string $keyword, string $startTime, string $endTime, string $sortKey, string $orderBy): object
+    public function fetchHosResult(?string $keyword, string $startTime, string $endTime, string $sortKey, string $orderBy, string $raw): object
     {
-        return $this->repository->fetchHosResult($keyword, $startTime, $endTime, $sortKey, $orderBy);
+        return $this->repository->fetchHosResult($keyword, $startTime, $endTime, $sortKey, $orderBy, $raw);
     }
     
 }
