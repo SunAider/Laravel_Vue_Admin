@@ -33,7 +33,7 @@
               <th scope="col" class="sort-header">No</th>
               <th scope="col" class="sort-header" @click="onSort('tag_id')">病院のタグ名</th>
               <th scope="col" class="sort-header">
-                PC_Click回数
+                PC_CLICK
               </th>
               <th scope="col" class="sort-header">
                 PC_IMP
@@ -42,7 +42,7 @@
                 PC_PV
               </th>
               <th scope="col" class="sort-header">
-                SP_Click回数
+                SP_CLICK
               </th>
               <th scope="col" class="sort-header">
                 SP_IMP
@@ -178,7 +178,7 @@ export default {
           this.$toast.errorToast()
         })
     },
-    async fetchHosCSV() {
+    async fetchHosSubCSV() {
       const orderBy = this.isAsc ? 'asc' : 'desc'
       await hosResultRepository
         .indexWithHosResultCSV(this.page, this.startDateTime, this.endDateTime, this.sortKey, orderBy)
@@ -187,7 +187,8 @@ export default {
             this.$toast.errorToast()
             return
           }
-          this.hosResultsSubCSV = res.data
+          this.hosResultsSubCSV = res.data 
+          return res.data
           // console.log('axios result', this.hosResults)
         })
         .catch(async err => {
@@ -244,52 +245,47 @@ export default {
       const html = document.querySelector('table').outerHTML
       this.htmlToCSV(html, 'report.csv')
     },
-    onSubCsvExport() {
-      console.log('Raw Data CSV export ready')
-      this.fetchHosCSV()
-      console.log("before sub download", this.hosResultsSubCSV)
+    async onSubCsvExport() {
+      await this.fetchHosSubCSV()
       var array = this.hosResultsSubCSV
-        var str = '病院のタグ名, 日時, 種類' + '\r\n';
-        console.log("array length", array.length)
-        for (var i = 0; i < array.length; i++) { 
-          let line = ''
-          let click_type = ''
-          switch (array[i].click_type) {
-            case 0:
-              click_type = "PC_PV"
-              break
-            case 1:
-              click_type = "PC_IMP"
-              break
-            case 2:
-              click_type = "PC_CLICK"
-              break
-            case 3:
-              click_type = "SP_IMP"
-              break
-            case 4:
-              click_type = "SP_CLICK"
-              break
-            case 5:
-              click_type = "SP_PV"
-              break
-          }
-          line = array[i].tag_id + "," + array[i].click_date + "," + click_type;
-          console.log("array line", line)
-          str += line + '\r\n';
+      var str = 'Tag_Name, Date/Time, Type' + '\r\n';
+      // console.log("array length", array.length)
+      for (var i = 0; i < array.length; i++) { 
+        let line = ''
+        let click_type = ''
+        switch (array[i].click_type) {
+          case 0:
+            click_type = "PC_PV"
+            break
+          case 1:
+            click_type = "PC_IMP"
+            break
+          case 2:
+            click_type = "PC_CLICK"
+            break
+          case 3:
+            click_type = "SP_IMP"
+            break
+          case 4:
+            click_type = "SP_CLICK"
+            break
+          case 5:
+            click_type = "SP_PV"
+            break
         }
-        console.log("str", str)
-
-        var blob = new Blob([str], { type: 'text/csv;charset=utf-8;' });
-
-        var link = document.createElement('a');
-        var url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'csvfilename.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        line = array[i].tag_id + "," + array[i].click_date + "," + click_type;
+        // console.log("array line", line)
+        str += line + '\r\n';
+      }
+      var blob = new Blob([str], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      var url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'csvfilename.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
 }
