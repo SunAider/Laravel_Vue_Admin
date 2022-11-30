@@ -61,35 +61,3 @@ access to [localhost:8180](localhost:8180)
 ```bash
 make down
 ```
-
-## generate API docs
-```bash
-make api-test
-```
-
-## run front auto test
-```bash
-cp cypress.env.example.json cypress.env.json
-
-make run-front-auto-test
-```
-
-## output ER
-```bash
-make er-output
-
-schemaspy/index.html
-をブラウザーで開いてください
-```
-
-## memo
-### ブランチの運用
-git flowに従う
-
-ブランチ名のフォーマットは以下とする
-```
-feat/{issue no.}/{prefix}-{work-content}
-
-例）
-feat/#1/create-home-view
-```
