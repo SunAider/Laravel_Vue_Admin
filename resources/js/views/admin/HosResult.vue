@@ -33,22 +33,22 @@
               <th scope="col" class="sort-header">No</th>
               <th scope="col" class="sort-header" @click="onSort('tag_id')">病院のタグ名</th>
               <th scope="col" class="sort-header">
-                PC_CLICK
+                PC_PV
               </th>
               <th scope="col" class="sort-header">
                 PC_IMP
               </th>
               <th scope="col" class="sort-header">
-                PC_PV
+                PC_CLICK
               </th>
               <th scope="col" class="sort-header">
-                SP_CLICK
+                SP_PV
               </th>
               <th scope="col" class="sort-header">
                 SP_IMP
               </th>
               <th scope="col" class="sort-header">
-                SP_PV
+                SP_CLICK
               </th>
             </tr>
           </thead>

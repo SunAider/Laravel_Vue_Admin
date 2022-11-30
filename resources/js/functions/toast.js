@@ -9,7 +9,7 @@ export default {
       type: 'success',
       theme: 'bubble',
       position: 'bottom-center',
-      duration: 5000,
+      duration: 4000,
       fullWidth: false,
     }
     this.showToasted(message, options)
@@ -20,7 +20,7 @@ export default {
       type: 'error',
       theme: 'bubble',
       position: 'bottom-center',
-      duration: 5000,
+      duration: 2000,
       fullWidth: false,
     }
     this.showToasted(message, options)
@@ -33,7 +33,7 @@ export default {
       type: 'error',
       theme: 'bubble',
       position: 'bottom-center',
-      duration: 6000,
+      duration: 2000,
       fullWidth: false,
     }
     this.showToasted(message, options)
