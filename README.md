@@ -1,6 +1,6 @@
 # Name
 
- YUGYOSEN
+ Middle Server
 
 # Required
 - PHP >= 7.3.0
@@ -55,12 +55,6 @@ make npm-run-watch
 access to [localhost:8180](localhost:8180)
 
 ブラウザで描画
-
-## phpMyadmin
-[localhost:8180](localhost:8180)
-```bash
-id: yugyosen
-pass: root
 ```
 
 ## stop application
